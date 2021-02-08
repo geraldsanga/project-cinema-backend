@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 from core.views import add_seats
 
@@ -23,3 +25,5 @@ urlpatterns = [
     path('add_seats/', add_seats, name='add_seats'),
     path('core/', include('core.api.urls'))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

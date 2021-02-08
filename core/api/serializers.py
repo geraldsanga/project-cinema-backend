@@ -16,6 +16,7 @@ class HallSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField()
     class Meta:
         model = Movie
         fields = '__all__'

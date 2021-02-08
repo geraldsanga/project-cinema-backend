@@ -20,6 +20,7 @@ class Hall(models.Model):
 
 class Movie(models.Model):
     title = models.CharField(max_length=30)
+    image = models.ImageField(upload_to='movie_images/')
     premier_date = models.DateField()
     duration = models.IntegerField()
     description = models.TextField()

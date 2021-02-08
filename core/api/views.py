@@ -11,7 +11,7 @@ from core.api.serializers import MovieSerializer
 class NowPlayingMovies(views.APIView):
     """
     This view will return all the movies that are currently been shown,
-    that is: movies that are still within a 28 days range from the day
+    that is: movies that are still within a 30 days range from the day
     they premiered.
     """
     now_playing_movies = list()
@@ -20,7 +20,7 @@ class NowPlayingMovies(views.APIView):
     def is_it_currently_playing(movie):
         today = datetime.today().date()
         movie_final_date = movie.premier_date + timedelta(days=30)
-        if movie_final_date > today:
+        if movie_final_date > today > movie.premier_date:
             return movie
 
     def get(self, request):
@@ -54,4 +54,3 @@ class OpeningThisWeekMovies(views.APIView):
                 self.opening_this_week_movies.append(movie)
         serializer = MovieSerializer(self.opening_this_week_movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
