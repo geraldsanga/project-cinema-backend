@@ -3,7 +3,7 @@ from rest_framework import serializers
 from core.models import *
 
 
-class TheaterSerializer(models.Model):
+class TheaterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Theater
         fields = '__all__'
@@ -21,13 +21,13 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ScreeningSerializer(models.Model):
+class ScreeningSerializer(serializers.ModelSerializer):
     class Meta:
         model = Screening
         fields = '__all__'
 
 
-class TicketSerializer(models.Model):
+class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = '__all__'

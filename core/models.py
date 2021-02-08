@@ -13,7 +13,6 @@ class Theater(models.Model):
 class Hall(models.Model):
     theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    number_of_seats = models.IntegerField()
 
     def __str__(self):
         return f'{self.name} - {self.theater}'
@@ -21,8 +20,7 @@ class Hall(models.Model):
 
 class Movie(models.Model):
     title = models.CharField(max_length=30)
-    premier_date = models.DateTimeField()
-    final_date = models.DateTimeField()
+    premier_date = models.DateField()
     duration = models.IntegerField()
     description = models.TextField()
 
