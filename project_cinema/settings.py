@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'core',
     
     # third party apps
-    'rest_framework'
+    'rest_framework',
+    'leaflet'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (-6.815244, 39.288265),
+    'DEFAULT_ZOOM': 16,
+    'MIN_ZOOM': 3,
+    'MAX_ZOOM': 18,
+    'DEFAULT_PRECISION': 6,
+    }

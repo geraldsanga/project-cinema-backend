@@ -1,3 +1,4 @@
+from django.utils.html import mark_safe
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models as  gis_models
 from django.db import models
@@ -26,6 +27,7 @@ class Movie(models.Model):
     premier_date = models.DateField()
     duration = models.IntegerField()
     description = models.TextField()
+
 
     def __str__(self):
         return f'{self.title}'
