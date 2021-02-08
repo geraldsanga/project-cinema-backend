@@ -4,8 +4,8 @@ from rest_framework import status, views
 from rest_framework.response import Response
 
 
-from core.models import Movie
-from core.api.serializers import MovieSerializer
+from core.models import Movie, Theater
+from core.api.serializers import MovieSerializer, TheaterSerializer
 
 
 class NowPlayingMovies(views.APIView):
@@ -53,4 +53,15 @@ class OpeningThisWeekMovies(views.APIView):
             if self.is_it_opening_this_week(movie) is not None:
                 self.opening_this_week_movies.append(movie)
         serializer = MovieSerializer(self.opening_this_week_movies, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class AllTheaters(views.APIView):
+    """
+    List all the theaters that are know by the application
+    """
+
+    def get(self, request):
+        theaters = Theater.objects.all()
+        serializer = TheaterSerializer(theaters, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
