@@ -1,9 +1,11 @@
 from django.contrib.auth.models import User
+from django.contrib.gis.db import models as  gis_models
 from django.db import models
 
 
 class Theater(models.Model):
     name = models.CharField(max_length=50)
+    location = gis_models.PointField()
     contact_number = models.CharField(max_length=14)
 
     def __str__(self):
