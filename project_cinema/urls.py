@@ -23,7 +23,9 @@ from core.views import add_seats
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('add_seats/', add_seats, name='add_seats'),
-    path('core/', include('core.api.urls'))
+    path('core/', include('core.api.urls')),
+    path('auth/', include('rest_auth.urls')),
+    path('auth/registration/', include('rest_auth.registration.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

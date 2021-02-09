@@ -6,7 +6,7 @@ from django.db import models
 
 class Theater(models.Model):
     name = models.CharField(max_length=50)
-    location = gis_models.PointField()
+    location = gis_models.PointField(srid=4326, geography=True)
     contact_number = models.CharField(max_length=14)
 
     def __str__(self):

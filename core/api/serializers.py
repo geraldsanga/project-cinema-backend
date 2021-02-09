@@ -1,9 +1,11 @@
+from rest_framework_gis import serializers as gis_serializers
 from rest_framework import serializers
-
 from core.models import *
 
 
 class TheaterSerializer(serializers.ModelSerializer):
+    location = gis_serializers.GeometryField()
+
     class Meta:
         model = Theater
         fields = '__all__'

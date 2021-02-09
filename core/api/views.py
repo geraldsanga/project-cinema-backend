@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 from rest_framework import status, views
 from rest_framework.response import Response
 
-
 from core.models import Movie, Theater
 from core.api.serializers import MovieSerializer, TheaterSerializer
 
@@ -65,3 +64,10 @@ class AllTheaters(views.APIView):
         theaters = Theater.objects.all()
         serializer = TheaterSerializer(theaters, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class NearByTheaters(views.APIView):
+    """
+    Find theaters that are close to the current user location
+    """
+    pass
