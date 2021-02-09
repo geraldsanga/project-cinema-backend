@@ -135,6 +135,18 @@ LEAFLET_CONFIG = {
     'DEFAULT_PRECISION': 6,
 }
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
+
 # added because of ConnectionRefused Error[111]
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
