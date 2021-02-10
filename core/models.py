@@ -6,6 +6,7 @@ from django.db import models
 
 class Theater(models.Model):
     name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='theater_images/')
     location = gis_models.PointField(srid=4326, geography=True)
     contact_number = models.CharField(max_length=14)
 
@@ -20,9 +21,13 @@ class Hall(models.Model):
     def __str__(self):
         return f'{self.name} - {self.theater}'
 
+class Category(models.Model):
+    name = models.CharField(max_length=30)
 
 class Movie(models.Model):
     title = models.CharField(max_length=30)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    director = models.CharField(max_length=30)
     image = models.ImageField(upload_to='movie_images/')
     premier_date = models.DateField()
     duration = models.IntegerField()
