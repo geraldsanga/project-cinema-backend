@@ -28,7 +28,7 @@ class SeatAdmin(admin.ModelAdmin):
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    actions_on_top = False
+    pass
 
 
 @admin.register(Theater)

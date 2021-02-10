@@ -13,8 +13,6 @@ class NowPlayingMovies(views.APIView):
     that is: movies that are still within a 30 days range from the day
     they premiered.
     """
-    now_playing_movies = list()
-
     @staticmethod
     def is_it_currently_playing(movie):
         today = datetime.today().date()
@@ -23,11 +21,13 @@ class NowPlayingMovies(views.APIView):
             return movie
 
     def get(self, request):
+        now_playing_movies = list()
         movies = Movie.objects.all()
         for movie in movies:
             if self.is_it_currently_playing(movie) is not None:
-                self.now_playing_movies.append(movie)
-        serializer = MovieSerializer(self.now_playing_movies, many=True)
+                now_playing_movies.append(movie)
+            print(now_playing_movies)
+        serializer = MovieSerializer(now_playing_movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -37,8 +37,6 @@ class OpeningThisWeekMovies(views.APIView):
     movies whose starting date is greater that today but less than seven days
     after today
     """
-    opening_this_week_movies = list()
-
     @staticmethod
     def is_it_opening_this_week(movie):
         today = datetime.today().date()
@@ -47,11 +45,12 @@ class OpeningThisWeekMovies(views.APIView):
             return movie
 
     def get(self, request):
+        opening_this_week_movies = list()
         movies = Movie.objects.all()
         for movie in movies:
             if self.is_it_opening_this_week(movie) is not None:
-                self.opening_this_week_movies.append(movie)
-        serializer = MovieSerializer(self.opening_this_week_movies, many=True)
+                opening_this_week_movies.append(movie)
+        serializer = MovieSerializer(opening_this_week_movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
