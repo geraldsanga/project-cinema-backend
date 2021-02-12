@@ -1,6 +1,6 @@
 from leaflet.admin import LeafletGeoAdmin
 from django.contrib import admin
-from .models import *
+from .models import Category, Hall, Movie, Screening, Theater
 
 
 @admin.register(Hall)
@@ -10,10 +10,17 @@ class HallAdmin(admin.ModelAdmin):
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'premier_date')
+
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         form.base_fields["duration"].label = "Duration(hrs) eg: 2.30 for 2 hours and a half"
         return form
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Screening)
@@ -21,20 +28,10 @@ class ScreeningAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Seat)
-class SeatAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Ticket)
-class TicketAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(Theater)
 class TheaterAdmin(LeafletGeoAdmin):
     list_display = ('name', 'contact_number')
-    fields = ('name', 'contact_number', 'location')
+    fields = ('name', 'image', 'contact_number', 'location')
     search_fields = ['name']
 
     def get_form(self, request, obj=None, **kwargs):

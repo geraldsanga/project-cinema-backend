@@ -24,6 +24,12 @@ class Hall(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=30)
 
+    def __str__(self):
+        return f'{self.name} - Genre'
+    class Meta:
+        verbose_name = 'Movie Category'
+        verbose_name_plural = 'Movie Categories'
+
 class Movie(models.Model):
     title = models.CharField(max_length=30)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -40,16 +46,11 @@ class Movie(models.Model):
 
 class Screening(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    hall = models.ForeignKey(Hall, on_delete=models.CASCADE)
+    hall = models.ManyToManyField(Hall)
     start_time = models.DateTimeField()
 
-    def save(self, *args, **kwargs):
-        if self.start_time > self.movie.final_date or self.start_time < self.movie.premier_date:
-            raise ValueError('The date is not as per the time range the movie will be shown')
-        super(Screening, self).save(*args, **kwargs)
-
     def __str__(self):
-        return f'{self.movie} show in {self.hall.theater} - {self.hall} at {self.start_time}'
+        return f'{self.movie} at {self.start_time}'
 
 
 class Seat(models.Model):

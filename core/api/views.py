@@ -26,7 +26,6 @@ class NowPlayingMovies(views.APIView):
         for movie in movies:
             if self.is_it_currently_playing(movie) is not None:
                 now_playing_movies.append(movie)
-            print(now_playing_movies)
         serializer = MovieSerializer(now_playing_movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
