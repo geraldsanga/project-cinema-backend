@@ -1,11 +1,16 @@
 from leaflet.admin import LeafletGeoAdmin
 from django.contrib import admin
-from .models import Category, Hall, Movie, Screening, Theater
+from .models import Category, Hall, Movie, Screening, Theater, Ticket
 
 
 @admin.register(Hall)
 class HallAdmin(admin.ModelAdmin):
     list_display = ('theater', 'name')
+
+
+@admin.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Movie)

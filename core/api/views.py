@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
+import pytz
 
 from rest_framework import status, views
 from rest_framework.response import Response
 
-from core.models import Movie, Theater
-from core.api.serializers import MovieSerializer, TheaterSerializer
+from core.models import Category, Movie, Theater, Screening
+from core.api.serializers import CategorySerializer, MovieSerializer, TheaterSerializer, ScreeningSerializer
 
 
 class NowPlayingMovies(views.APIView):
@@ -69,3 +70,52 @@ class NearByTheaters(views.APIView):
     Find theaters that are close to the current user location
     """
     pass
+
+
+class MovieScreenings(views.APIView):
+    """
+    Return all screenings for a particular movie that will show today
+    """
+    utc = pytz.UTC
+
+    def get(self, request, id):
+        today_screenings_for_movie = list()
+        # 1. get the movie by it's id
+        requested_movie = Movie.objects.get(id=id)
+        # 2. get all screenings for that movie
+        current_time = datetime.now().replace(tzinfo=self.utc)
+        screening_today = datetime.today()
+        # 3. filter the screenings to get those for today only
+        # 4. see if the start time of the screening is greater than the time of the request
+        for screening in Screening.objects.filter(movie=requested_movie):
+            screening_start_time = screening.start_time.replace(tzinfo=self.utc)
+            if screening_start_time > current_time:
+                today_screenings_for_movie.append(screening)
+        # 5. Return those that satisfy all the conditions
+        serializer = ScreeningSerializer(today_screenings_for_movie, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class BookATicket(views.APIView):
+    """
+    Save a ticket for a customer, for a particular screening on a particular seat  in particular hall
+    that matches the screening
+    """
+    # 1. Get the ordered seat from the Ticket request
+    # 2. Get the screening requested
+    # 3. get the particular hall for that screening
+    # 4. get the customer who has sent the request
+    # 5. get the price
+    # 6. Record the Ticket
+    # 7. Return available seats so that there won't be duplicates hint: filter(Seat=None)
+
+    pass
+
+
+class CategoryView(views.APIView):
+    """Return all movie categories"""
+    def get(self, request):
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+

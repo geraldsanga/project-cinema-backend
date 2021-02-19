@@ -1,0 +1,34 @@
+#API for project_cinema
+This is the repo for the project_cinema back-end powered by django and django rest-framework
+including other packages that can be found in the requirements.txt file. Together with the [frontend
+application]() written in Vue js This back-end makes the full project_cinema. Endpoints include
+* _auth/registration/_ for user registration
+* _auth/login/_ for user authentication
+* _core/_ for the core application that holds a number of other endpoints as listed in /core/api/urls.py
+
+## Configuration
+You will need [postgres]() with [postgis]() with all it's dependencies GDAL to name one
+for this application to work. Create a database with the name _project_cinema_ with the user postgres.
+
+##Installation
+* clone the project
+```git clone 'project's git file path :)```
+  
+* cd into the BASE_DIR with
+  ```cd project_cinema```
+* Install packages
+```pip install -r requirements.txt```
+  
+* make migrations 
+``` python manage.py makemigrations  and python manage.py migrate```
+  
+* create a superuser with
+``` python manage.py createsuperuser```
+  
+* for sanity chake run 
+```python manage.py collectstatic```
+
+## Start the development server
+``python manage.py runserver``
+
+Now you can go to [localhost:8000]() and enjoy

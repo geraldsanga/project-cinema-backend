@@ -3,6 +3,13 @@ from rest_framework import serializers
 from core.models import *
 
 
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
+
+
 class TheaterSerializer(serializers.ModelSerializer):
     location = gis_serializers.GeometryField()
 
