@@ -1,4 +1,4 @@
-#API for project_cinema
+# API for project_cinema
 This is the repo for the project_cinema back-end powered by django and django rest-framework
 including other packages that can be found in the requirements.txt file. Together with the [frontend
 application]() written in Vue js This back-end makes the full project_cinema. Endpoints include
