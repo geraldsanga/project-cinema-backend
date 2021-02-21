@@ -7,7 +7,7 @@ application]() written in Vue js This back-end makes the full project_cinema. En
 * _core/_ for the core application that holds a number of other endpoints as listed in /core/api/urls.py
 
 ## Configuration
-You will need [postgres]() with [postgis]() with all it's dependencies GDAL to name one
+You will need [postgres](https://www.postgresql.org/) with [postgis](https://postgis.net/) with all it's dependencies GDAL to name one
 for this application to work. Create a database with the name _project_cinema_ with the user postgres.
 
 ##Installation
@@ -31,4 +31,4 @@ for this application to work. Create a database with the name _project_cinema_ w
 ## Start the development server
 ``python manage.py runserver``
 
-Now you can go to [localhost:8000]() and enjoy
+Now you can go to [localhost:8000](https://127.0.0.1:8000) and enjoy
