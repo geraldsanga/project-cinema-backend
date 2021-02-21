@@ -17,13 +17,6 @@ class TheaterSerializer(serializers.ModelSerializer):
         model = Theater
         fields = '__all__'
 
-
-class HallSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Hall
-        fields = '__all__'
-
-
 class MovieSerializer(serializers.ModelSerializer):
     image = serializers.ImageField()
 

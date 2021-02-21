@@ -108,7 +108,6 @@ class BookATicket(views.APIView):
     # 5. get the price
     # 6. Record the Ticket
     # 7. Return available seats so that there won't be duplicates hint: filter(Seat=None)
-
     pass
 
 
