@@ -12,11 +12,10 @@ for this application to work. Create a database with the name _project_cinema_ w
 
 ##Installation
 * clone the project
-```git clone 'project's git file path :)```
   
 * cd into the BASE_DIR with
   ```cd project_cinema```
-* Install packages
+* Install packages with pip
 ```pip install -r requirements.txt```
   
 * make migrations 
