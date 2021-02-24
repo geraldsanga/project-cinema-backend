@@ -76,19 +76,20 @@ class MovieScreenings(views.APIView):
     """
     Return all screenings for a particular movie that will show today
     """
-    utc = pytz.UTC
+    local_timezone = pytz.timezone('Africa/Dar_es_Salaam')
 
-    def get(self, request, id):
+    def get(self, request, pk):
         today_screenings_for_movie = list()
         # 1. get the movie by it's id
-        requested_movie = Movie.objects.get(id=id)
+        requested_movie = Movie.objects.get(id=pk)
         # 2. get all screenings for that movie
-        current_time = datetime.now().replace(tzinfo=self.utc)
+        current_time = datetime.now().replace(tzinfo=self.local_timezone)
         screening_today = datetime.today()
         # 3. filter the screenings to get those for today only
         # 4. see if the start time of the screening is greater than the time of the request
         for screening in Screening.objects.filter(movie=requested_movie):
-            screening_start_time = screening.start_time.replace(tzinfo=self.utc)
+            screening_start_time = screening.start_time.replace(tzinfo=self.local_timezone)
+            print('The current time is: ', current_time, 'The screening start time is: ', screening_start_time)
             if screening_start_time > current_time:
                 today_screenings_for_movie.append(screening)
         # 5. Return those that satisfy all the conditions
@@ -117,4 +118,3 @@ class CategoryView(views.APIView):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-

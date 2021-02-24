@@ -46,7 +46,7 @@ class Movie(models.Model):
 
 class Screening(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    hall = models.ManyToManyField(Hall)
+    hall = models.ForeignKey(Hall, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
 
     def __str__(self):
