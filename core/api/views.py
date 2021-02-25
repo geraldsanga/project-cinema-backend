@@ -89,7 +89,6 @@ class MovieScreenings(views.APIView):
         # 4. see if the start time of the screening is greater than the time of the request
         for screening in Screening.objects.filter(movie=requested_movie):
             screening_start_time = screening.start_time.replace(tzinfo=self.local_timezone)
-            print('The current time is: ', current_time, 'The screening start time is: ', screening_start_time)
             if screening_start_time > current_time:
                 today_screenings_for_movie.append(screening)
         # 5. Return those that satisfy all the conditions

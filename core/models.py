@@ -46,6 +46,7 @@ class Movie(models.Model):
 
 class Screening(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
     hall = models.ForeignKey(Hall, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
 
