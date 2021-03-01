@@ -69,8 +69,8 @@ class Seat(models.Model):
     row = models.CharField(max_length=1)
     number = models.CharField(max_length=2)
     price = models.IntegerField(blank=True, null=True)
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-    screening = models.ForeignKey(Screening, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, null=True, blank=True)
+    screening = models.ForeignKey(Screening, on_delete=models.CASCADE, null=True, blank=True)
 
     def calculate_seat_price(self, row):
         if row == 'A' or 'B' or 'C' or 'D' or 'E':

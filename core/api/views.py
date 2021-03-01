@@ -4,8 +4,9 @@ import pytz
 from rest_framework import status, views
 from rest_framework.response import Response
 
-from core.models import Category, Movie, Theater, Screening
-from core.api.serializers import CategorySerializer, MovieSerializer, TheaterSerializer, ScreeningSerializer
+from django.contrib.auth.models import User
+from core.models import Category, Movie, Theater, Ticket, Screening, Seat
+from core.api.serializers import CategorySerializer, MovieSerializer, TheaterSerializer, ScreeningSerializer, SeatSerializer
 
 
 class NowPlayingMovies(views.APIView):
@@ -96,19 +97,26 @@ class MovieScreenings(views.APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class BookATicket(views.APIView):
+class BookATicketView(views.APIView):
     """
     Save a ticket for a customer, for a particular screening on a particular seat  in particular hall
     that matches the screening
     """
-    # 1. Get the ordered seat from the Ticket request
-    # 2. Get the screening requested
-    # 3. get the particular hall for that screening
-    # 4. get the customer who has sent the request
-    # 5. get the price
-    # 6. Record the Ticket
-    # 7. Return available seats so that there won't be duplicates hint: filter(Seat=None)
-    pass
+    def post(self, request, row, number):        
+        # 1. Get the customer and screening
+        customer = User.objects.get(id=1)
+        screening = Screening.objects.get(id=1)
+        # 2. Create a ticket object for the customer for that screening
+        ticket = Ticket.objects.create(customer=customer, screening=screening)
+        # 3. Create a seat object for the created ticket and screening
+        seat = Seat.objects.get(row=row, number=number)
+        seat.ticket = ticket
+        seat.screening = screening
+        seat.save()
+        # 4. get all seat objects that have no tickets yet for that screenings and return them as response
+        free_seats = Seat.objects.filter(ticket__isnull=True)
+        serializer = SeatSerializer(free_seats, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class CategoryView(views.APIView):
