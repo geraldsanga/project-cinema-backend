@@ -30,13 +30,18 @@ class ScreeningSerializer(serializers.ModelSerializer):
     movie_name = serializers.SlugRelatedField(read_only=True, slug_field='movie')
     hall = serializers.SlugRelatedField(read_only=True, slug_field='name')
     theater = serializers.SlugRelatedField(read_only=True, slug_field='name')
-    start_time = serializers.DateTimeField(format="%d-%m-%Y %H %M")
+    start_time = serializers.DateTimeField(format="%d-%m-%Y %H:%M")
 
     class Meta:
         model = Screening
         fields = ('movie_name', 'hall', 'theater', 'start_time')
 
+class SeatSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = Seat
+        fields = '__all__'
+        
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
