@@ -65,14 +65,6 @@ class AllTheaters(views.APIView):
         serializer = TheaterSerializer(theaters, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-class NearByTheaters(views.APIView):
-    """
-    Find theaters that are close to the current user location
-    """
-    pass
-
-
 class MovieScreenings(views.APIView):
     """
     Return all screenings for a particular movie that will show today
@@ -102,10 +94,17 @@ class BookATicketView(views.APIView):
     Save a ticket for a customer, for a particular screening on a particular seat  in particular hall
     that matches the screening
     """
+    def get(self, request):
+        screening = Screening.objects.get(id=1)
+        print(screening)
+        free_seats = Seat.objects.filter(screening=screening, ticket__isnull=True)
+        serializer = SeatSerializer(free_seats, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request, row, number):        
         # 1. Get the customer and screening
         customer = User.objects.get(id=1)
-        screening = Screening.objects.get(id=1)
+        screening = Screening.objects.get(id=2)
         # 2. Create a ticket object for the customer for that screening
         ticket = Ticket.objects.create(customer=customer, screening=screening)
         # 3. Create a seat object for the created ticket and screening
