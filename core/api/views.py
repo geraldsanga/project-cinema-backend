@@ -5,8 +5,8 @@ from rest_framework import status, views
 from rest_framework.response import Response
 
 from django.contrib.auth.models import User
-from core.models import Category, Movie, Theater, Ticket, Screening, Seat
-from core.api.serializers import CategorySerializer, MovieSerializer, TheaterSerializer, ScreeningSerializer, SeatSerializer
+from core.models import Category, Movie, Theater, Ticket, Screening
+from core.api.serializers import CategorySerializer, MovieSerializer, TheaterSerializer, ScreeningSerializer
 
 
 class NowPlayingMovies(views.APIView):
@@ -95,27 +95,10 @@ class BookATicketView(views.APIView):
     that matches the screening
     """
     def get(self, request):
-        screening = Screening.objects.get(id=1)
-        print(screening)
-        free_seats = Seat.objects.filter(screening=screening, ticket__isnull=True)
-        serializer = SeatSerializer(free_seats, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({}, status=status.HTTP_200_OK)
 
     def post(self, request, row, number):        
-        # 1. Get the customer and screening
-        customer = User.objects.get(id=1)
-        screening = Screening.objects.get(id=2)
-        # 2. Create a ticket object for the customer for that screening
-        ticket = Ticket.objects.create(customer=customer, screening=screening)
-        # 3. Create a seat object for the created ticket and screening
-        seat = Seat.objects.get(row=row, number=number)
-        seat.ticket = ticket
-        seat.screening = screening
-        seat.save()
-        # 4. get all seat objects that have no tickets yet for that screenings and return them as response
-        free_seats = Seat.objects.filter(ticket__isnull=True)
-        serializer = SeatSerializer(free_seats, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({},status=status.HTTP_200_OK)
 
 
 class CategoryView(views.APIView):

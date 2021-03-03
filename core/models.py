@@ -59,28 +59,9 @@ class Screening(models.Model):
 class Ticket(models.Model):
     price = models.IntegerField(null=True, blank=True)
     time_created = models.DateTimeField(auto_now_add=True)
+    seat = models.CharField(max_length=3)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     screening = models.ForeignKey(Screening, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.customer}\'s ticket for {self.screening}'
-
-class Seat(models.Model):
-    row = models.CharField(max_length=1)
-    number = models.CharField(max_length=2)
-    price = models.IntegerField(blank=True, null=True)
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, null=True, blank=True)
-    screening = models.ForeignKey(Screening, on_delete=models.CASCADE, null=True, blank=True)
-
-    def calculate_seat_price(self, row):
-        if row == 'A' or 'B' or 'C' or 'D' or 'E':
-            return 7500
-        else:
-            return 1000
-
-    def save(self, *args, **kwargs):
-        self.price = self.calculate_seat_price(self.row)
-        super(Seat, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return f'{self.row}{self.number}'
