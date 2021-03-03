@@ -97,8 +97,11 @@ class BookATicketView(views.APIView):
     def get(self, request):
         return Response({}, status=status.HTTP_200_OK)
 
-    def post(self, request, row, number):        
-        return Response({},status=status.HTTP_200_OK)
+    def post(self, request, seat):
+        customer = request.user
+        screening = Screening.objects.get(id=1)
+        Ticket.objects.create(customer=customer, screening=screening, seat=seat)      
+        return Response({"created": "OK"},status=status.HTTP_200_OK)
 
 
 class CategoryView(views.APIView):
