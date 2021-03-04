@@ -51,7 +51,7 @@ class Screening(models.Model):
     theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.movie} at {self.start_time}'
+        return f'{self.movie} in {self.hall}'
 
 
 
@@ -65,3 +65,7 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f'{self.customer}\'s ticket for {self.screening}'
+    
+    def save(self, *args, **kwargs):
+        self.price = 7500
+        super(Ticket, self).save(*args, **kwargs)
