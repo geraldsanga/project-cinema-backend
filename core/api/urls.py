@@ -4,8 +4,8 @@ from .views import (NowPlayingMovies, OpeningThisWeekMovies, CategoryView,
                     AllTheaters, MovieScreenings, BookATicketView)
 
 urlpatterns = [
-    path('book_a_ticket/<str:seat>/', BookATicketView.as_view(), name='book_a_ticket'),
-    path('book_a_ticket/', BookATicketView.as_view(), name='get_free_seats'),
+    path('book_a_ticket/<int:screening_id>/<str:seat>/', BookATicketView.as_view(), name='book_a_ticket'),
+    path('get_free_seats/<int:pk>', BookATicketView.as_view(), name='get_free_seats'),
     path('categories/', CategoryView.as_view(), name='categories'),
     path('movie_screenings/<int:pk>', MovieScreenings.as_view(), name='movie_screenings'),
     path('now_playing_movies/', NowPlayingMovies.as_view(), name='now_playing_movies'),
