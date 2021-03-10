@@ -109,10 +109,14 @@ class BookATicketView(views.APIView):
         booked_seats = Ticket.objects.filter(screening=screening).values_list('seat', flat=True)
         print(booked_seats)
         if seat in booked_seats:
-           return Response({"aborted": "NO"},status=status.HTTP_200_OK)
+           return Response({"aborted": "Seat Already Booked"},status=status.HTTP_200_OK)
         else:
             Ticket.objects.create(customer=customer, screening=screening, seat=seat)
-            return Response({"created": "OK"},status=status.HTTP_200_OK)      
+            booked_tickets = Ticket.objects.filter(screening=screening)
+            for ticket in booked_tickets:
+                if ticket.seat in hall_seats:
+                    hall_seats.remove(ticket.seat)
+            return Response(hall_seats, status=status.HTTP_200_OK)      
         
         
 class CategoryView(views.APIView):
