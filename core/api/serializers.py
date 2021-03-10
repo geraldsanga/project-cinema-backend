@@ -34,7 +34,7 @@ class ScreeningSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Screening
-        fields = ('movie', 'hall', 'theater', 'start_time')
+        fields = ('id', 'movie', 'hall', 'theater', 'start_time')
 
         
 class TicketSerializer(serializers.ModelSerializer):
