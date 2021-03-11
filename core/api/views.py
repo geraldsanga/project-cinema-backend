@@ -90,7 +90,7 @@ class MovieScreenings(views.APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class BookATicketView(views.APIView):
+class GetFreeSeatsView(views.APIView):
     """
     Save a ticket for a customer, for a particular screening on a particular seat  in particular hall
     that matches the screening
@@ -103,7 +103,9 @@ class BookATicketView(views.APIView):
                 hall_seats.remove(ticket.seat)
         return Response(hall_seats, status=status.HTTP_200_OK)
 
-    def post(self, request, screening_id, seat):
+
+class PerformBookingView(views.APIView):
+    def get(self, request, screening_id, seat):
         customer = request.user
         screening = Screening.objects.get(id=screening_id)
         booked_seats = Ticket.objects.filter(screening=screening).values_list('seat', flat=True)
@@ -113,11 +115,12 @@ class BookATicketView(views.APIView):
         else:
             Ticket.objects.create(customer=customer, screening=screening, seat=seat)
             booked_tickets = Ticket.objects.filter(screening=screening)
+            print(booked_tickets)
             for ticket in booked_tickets:
                 if ticket.seat in hall_seats:
                     hall_seats.remove(ticket.seat)
-            return Response(hall_seats, status=status.HTTP_200_OK)      
-        
+            return Response(hall_seats, status=status.HTTP_200_OK) 
+
         
 class CategoryView(views.APIView):
     """Return all movie categories"""
