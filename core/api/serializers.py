@@ -35,9 +35,3 @@ class ScreeningSerializer(serializers.ModelSerializer):
     class Meta:
         model = Screening
         fields = ('id', 'movie', 'hall', 'theater', 'start_time')
-
-        
-class TicketSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Ticket
-        fields = '__all__'
