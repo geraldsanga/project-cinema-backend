@@ -15,7 +15,7 @@ for this application to work. Create a database with the name _project_cinema_ w
 ## The frontend app
 Click this 👉 [link](https://github.com/geraldsanga/project-cinema-frontend) to follow installation guides for the frontend application written in Vue.js
 
-##Installation
+## Installation
 * clone 🔽 the project
   
 * cd ▶️ into the BASE_DIR with
