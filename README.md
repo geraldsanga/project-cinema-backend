@@ -23,16 +23,16 @@ Click this 👉 [link](https://github.com/geraldsanga/project-cinema-frontend) t
 * Install ⚙️ packages with pip
 ```pip install -r requirements.txt```
   
-* make migrations 
+* make migrations 📑 
 ``` python manage.py makemigrations  and python manage.py migrate```
   
-* create a superuser with
+* create a superuser 👨‍🏫 with
 ``` python manage.py createsuperuser```
   
-* for sanity chake run 
+* for sanity 🚥 chake run 
 ```python manage.py collectstatic```
 
-## Start the development server
+## Start the development server ⚡
 ``python manage.py runserver``
 
-Now you can go to [localhost:8000](https://127.0.0.1:8000) and enjoy
+Now you can go to [localhost:8000](https://127.0.0.1:8000) and enjoy the world of movies
